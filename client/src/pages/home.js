@@ -25,10 +25,12 @@ class Home extends React.Component{
                                 <Form.Control size="lg" type="text" placeholder="Please enter your name" />
                             </Form.Group>
 
+                            <Link to="/session">
                             <Button
                                 className="btn-main mt-2"
                                 variant="outline-dark"
                                 size="lg">Join</Button>
+                            </Link>
 
                             <p className="separator">or</p>
 

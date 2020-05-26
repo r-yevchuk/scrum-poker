@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from "./pages/home";
 import Switch from "react-bootstrap/cjs/Switch";
 import NewRoom from "./pages/new-room";
+import Room from "./pages/room";
 
 class App extends React.Component {
     render() {
@@ -13,6 +14,7 @@ class App extends React.Component {
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/new-room" component={NewRoom} />
+                <Route exact path="/session" component={Room} />
             </Switch>
         </Router>
     )
