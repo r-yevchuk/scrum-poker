@@ -26,19 +26,13 @@ class Home extends React.Component{
                             </Form.Group>
 
                             <Link to="/session">
-                            <Button
-                                className="btn-main mt-2"
-                                variant="outline-dark"
-                                size="lg">Join</Button>
+                                <Button className="btn-main mt-2" variant="outline-dark" size="lg">Join</Button>
                             </Link>
 
                             <p className="separator">or</p>
 
                             <Link to="/new-room">
-                            <Button
-                                className="btn-main"
-                                variant="outline-dark"
-                                size="lg">Create Room</Button>
+                                <Button className="btn-main" variant="outline-dark" size="lg">Create Room</Button>
                             </Link>
                         </Form>
                     </Row>
