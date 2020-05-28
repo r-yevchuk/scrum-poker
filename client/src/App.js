@@ -8,15 +8,15 @@ import NewRoom from "./pages/new-room";
 import Room from "./pages/room";
 
 class App extends React.Component {
-    render() {
-        return (
-        <Router>
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/new-room" component={NewRoom} />
-                <Route exact path="/session" component={Room} />
-            </Switch>
-        </Router>
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route exact path="/new-room" component={NewRoom}/>
+          <Route exact path="/session" component={Room}/>
+        </Switch>
+      </Router>
     )
   }
 }
