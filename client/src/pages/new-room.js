@@ -65,7 +65,7 @@ class NewRoom extends React.Component {
             >{isAllCardsActive ? "Unselect all" : "Select all"}</Button>
           </ButtonToolbar>
         </Row>
-        <Row>
+        <Row className="cards-row">
           {cardSet.map((cards) => (
             <Card value={cards} active={isAllCardsActive}/>
           ))}

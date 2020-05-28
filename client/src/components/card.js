@@ -23,14 +23,17 @@ class Card extends React.Component {
   render() {
     const {isActive} = this.state;
     const {value} = this.props
-    let backgroundColor = "white"
+    let backgroundColor = "3px solid #000"
+    let textColor = "white"
 
-    if (isActive)
-      backgroundColor = "green"
+    if (isActive) {
+      backgroundColor = "3px solid #30af25"
+      textColor = "#C1FFC1"
+    }
 
     return (
       <div
-        style={{background: backgroundColor}}
+        style={{border: backgroundColor, background: textColor}}
         onClick={() => this.onCardClick()} className="card-frame">
         <span className="card-value">{value}</span>
       </div>
