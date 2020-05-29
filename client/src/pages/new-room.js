@@ -6,6 +6,7 @@ import {Button, ButtonToolbar} from "react-bootstrap";
 import '../styles/new-room.css'
 import {cardSet} from '../const/config.js'
 import Card from "../components/card";
+import {Link} from "react-router-dom";
 
 
 class NewRoom extends React.Component {
@@ -68,8 +69,10 @@ class NewRoom extends React.Component {
         </Row>
 
         <Row className="mb-3 mt-3">
-            <Button className="mr-2" variant="outline-dark" size="lg">Create</Button>
+          <Button className="mr-2" variant="outline-dark" size="lg">Create</Button>
+          <Link to="/">
             <Button variant="outline-dark" size="lg">Cancel</Button>
+          </Link>
         </Row>
 
       </Container>
