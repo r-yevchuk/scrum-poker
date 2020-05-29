@@ -9,8 +9,7 @@ class Card extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    // You don't have to do this check first, but it can help prevent an unneeded render
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.active !== this.state.isActive) {
       this.setState({isActive: nextProps.active});
     }
