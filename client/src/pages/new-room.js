@@ -64,7 +64,7 @@ class NewRoom extends React.Component {
 
         <Row className="cards-row">
           {cardSet.map((cards) => (
-            <Card value={cards} active={isAllCardsSelected}/>
+            <Card key={cards} value={cards} active={isAllCardsSelected}/>
           ))}
         </Row>
 
