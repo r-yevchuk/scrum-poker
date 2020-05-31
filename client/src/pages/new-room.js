@@ -15,9 +15,11 @@ class NewRoom extends React.Component {
     super(props);
     this.state = {
       isAllCardsSelected: true,
-      isPrivateSession: false
+      isPrivateSession: false,
+      session: {}
     };
     this.handleChange = this.handleChange.bind(this);
+    this.selectedCards = []
   }
 
   reverseBoolState(variable){
@@ -26,7 +28,17 @@ class NewRoom extends React.Component {
 
   onCreateClick() {
     const { session } = this.state;
+    this.selectedCards = []
+    cardSet.selected.map((value, index) => this.sendSelectedCards(index, value))
+
+    console.log(this.selectedCards)
     this.sendData('session', session);
+  }
+
+  sendSelectedCards(index, value){
+    if (value === true){
+      this.selectedCards += (cardSet.values[index]) + ' ';
+    }
   }
 
   handleChange(event) {
@@ -41,6 +53,7 @@ class NewRoom extends React.Component {
   }
 
   sendData(path, data) {
+    data.cards = this.selectedCards
     Api.post(path, data)
       .then((response) => {
         if (response.error) {
@@ -50,12 +63,17 @@ class NewRoom extends React.Component {
       });
   }
 
+  showCards(cards, index, isAllCardsSelected){
+    cardSet.selected[index] = isAllCardsSelected;
+    return <Card key={cards} index={index} value={cards} active={isAllCardsSelected}/>
+  }
+
   render() {
     let {isAllCardsSelected, isPrivateSession} = this.state;
 
     return (
       <Container>
-        <h3 className="mt-4 text-xl-center">Create a new room</h3>
+        <h3 className="mt-3 text-xl-center">Create a new room</h3>
 
         <Row>
           <Form className="mt-lg-1">
@@ -87,7 +105,7 @@ class NewRoom extends React.Component {
                   onChange={this.handleChange} />
               </Form.Group>
             )}
-            <h4 className="mt-4 text-xl-center">Cards: </h4>
+            <h5 className="mt-2 text-xl-center">Cards: </h5>
           </Form>
         </Row>
 
@@ -102,9 +120,8 @@ class NewRoom extends React.Component {
         </Row>
 
         <Row className="cards-row">
-          {cardSet.map((cards) => (
-            <Card key={cards} value={cards} active={isAllCardsSelected}/>
-          ))}
+          {cardSet.values.map((cards, index) =>
+            this.showCards(cards, index, isAllCardsSelected))}
         </Row>
 
         <Row className="mb-3 mt-3">

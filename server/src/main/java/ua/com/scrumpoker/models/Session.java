@@ -23,6 +23,9 @@ public class Session {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String cards;
+
     @Size(min = 8, max = 40)
     private String password;
 

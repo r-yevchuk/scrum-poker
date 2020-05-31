@@ -1,5 +1,6 @@
 import React from "react";
 import '../styles/card.css'
+import {cardSet} from "../const/config";
 
 class Card extends React.Component {
   constructor(props) {
@@ -21,13 +22,16 @@ class Card extends React.Component {
 
   render() {
     const {isActive} = this.state;
-    const {value} = this.props
+    const {index, value} = this.props
     let backgroundColor = "3px solid #000"
     let textColor = "white"
 
     if (isActive) {
       backgroundColor = "3px solid #30af25"
       textColor = "#C1FFC1"
+      cardSet.selected[index] = true;
+    } else {
+      cardSet.selected[index] = false
     }
 
     return (
