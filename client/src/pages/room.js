@@ -15,6 +15,7 @@ class Room extends React.Component {
       <Container>
         <h4 className="mt-2">Session Id: {this.state.sessionId}
           <Link
+            to="#"
             className="ml-2"
             onClick={() => {
               navigator.clipboard.writeText(this.state.sessionId)
