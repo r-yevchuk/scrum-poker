@@ -14,9 +14,14 @@ class NewRoom extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      session: {},
       isAllCardsSelected: true,
       isPrivateSession: false,
-      session: {}
+      errors: {
+        name: "The name cannot be empty! ",
+        password: "",
+      },
+      isShowError: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.selectedCards = []
@@ -37,22 +42,45 @@ class NewRoom extends React.Component {
   }
 
   onCreateClick() {
-    const { session } = this.state;
+    const { session, errors } = this.state;
     this.selectedCards = []
+    this.setState({isShowError: true})
     cardSet.selected.map((value, index) => {
       if (value === true) {
         this.selectedCards += (cardSet.values[index]) + ' ';
       }
     })
 
-    console.log(this.selectedCards)
-    this.sendData('session', session);
+    if (this.validateForm(errors)) {
+      this.sendData('session', session);
+    }
+  }
+
+  validateForm(errors) {
+    let valid = true;
+    Object.values(errors).forEach(
+      (val) => { if (val.length > 0) valid = false; },
+    );
+    return valid;
   }
 
   handleChange(event) {
     const { name, value } = event.target;
+    const { errors } = this.state;
+    switch (name) {
+      case 'name':
+        errors.name = value.length < 1 ? 'The name cannot be empty! ' : '';
+        break;
+      case 'password':
+        errors.password = value.length > 8 && value.length <= 40 ?
+          '' : 'Password must be 8-40 characters! ';
+        break;
+      default:
+        break;
+    }
 
     this.setState((prevState) => ({
+      errors,
       session: {
         ...prevState.session,
         [name]: value,
@@ -76,14 +104,13 @@ class NewRoom extends React.Component {
   }
 
   render() {
-    let {isAllCardsSelected, isPrivateSession} = this.state;
-
+    let {isAllCardsSelected, isPrivateSession, errors, isShowError} = this.state;
     return (
       <Container>
         <h3 className="mt-3 text-xl-center">Create a new room</h3>
 
         <Row>
-          <Form className="mt-lg-1">
+          <Form id="form" className="mt-lg-1">
             <Form.Group controlId="formName">
               <Form.Label>Name:</Form.Label>
               <Form.Control
@@ -91,7 +118,13 @@ class NewRoom extends React.Component {
                 name="name"
                 size="lg"
                 type="text"
+                required
+                isInvalid={isShowError && errors.name.length > 0}
+                isValid={errors.name === ''}
                 onChange={this.handleChange}/>
+              <Form.Control.Feedback type="invalid">
+                {errors.name}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="formCheckbox">
@@ -109,7 +142,11 @@ class NewRoom extends React.Component {
                   name="password"
                   size="lg"
                   type="password"
+                  isInvalid={errors.password.length > 0}
                   onChange={this.handleChange} />
+                <Form.Control.Feedback type="invalid">
+                  {errors.password}
+                </Form.Control.Feedback>
               </Form.Group>
             )}
             <h5 className="mt-2 text-xl-center">Cards: </h5>
