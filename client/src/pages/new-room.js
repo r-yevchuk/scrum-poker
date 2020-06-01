@@ -26,19 +26,27 @@ class NewRoom extends React.Component {
     this.setState((currentState) => ({[variable]: !currentState[variable]}));
   }
 
+  onSelectAllClick(){
+    this.setState((currentState) => ({isAllCardsSelected: !currentState.isAllCardsSelected}));
+    cardSet.selected.fill(this.state.isAllCardsSelected)
+    this.forceUpdate()
+  }
+
+  componentDidMount() {
+    this.onSelectAllClick()
+  }
+
   onCreateClick() {
     const { session } = this.state;
     this.selectedCards = []
-    cardSet.selected.map((value, index) => this.sendSelectedCards(index, value))
+    cardSet.selected.map((value, index) => {
+      if (value === true) {
+        this.selectedCards += (cardSet.values[index]) + ' ';
+      }
+    })
 
     console.log(this.selectedCards)
     this.sendData('session', session);
-  }
-
-  sendSelectedCards(index, value){
-    if (value === true){
-      this.selectedCards += (cardSet.values[index]) + ' ';
-    }
   }
 
   handleChange(event) {
@@ -64,7 +72,6 @@ class NewRoom extends React.Component {
   }
 
   showCards(cards, index, isAllCardsSelected){
-    cardSet.selected[index] = isAllCardsSelected;
     return <Card key={cards} index={index} value={cards} active={isAllCardsSelected}/>
   }
 
@@ -114,14 +121,14 @@ class NewRoom extends React.Component {
             <Button
               variant="outline-dark"
               size="lg"
-              onClick={() => this.reverseBoolState('isAllCardsSelected')}
-            >{isAllCardsSelected ? "Unselect all" : "Select all"}</Button>
+              onClick={() => this.onSelectAllClick()}
+            >{!isAllCardsSelected ? "Unselect all" : "Select all"}</Button>
           </ButtonToolbar>
         </Row>
 
         <Row className="cards-row">
           {cardSet.values.map((cards, index) =>
-            this.showCards(cards, index, isAllCardsSelected))}
+            this.showCards(cards, index, cardSet.selected[index]))}
         </Row>
 
         <Row className="mb-3 mt-3">
