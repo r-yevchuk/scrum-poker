@@ -6,3 +6,7 @@
 .cards-row {
   margin: 1% 10% 1% 10%;
 }
+
+.text-error {
+  color: #dc3545;
+}

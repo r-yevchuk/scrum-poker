@@ -20,6 +20,7 @@ class NewRoom extends React.Component {
       errors: {
         name: "The name cannot be empty! ",
         password: "",
+        cards: "",
       },
       isShowError: false
     };
@@ -43,13 +44,7 @@ class NewRoom extends React.Component {
 
   onCreateClick() {
     const { session, errors } = this.state;
-    this.selectedCards = []
     this.setState({isShowError: true})
-    cardSet.selected.map((value, index) => {
-      if (value === true) {
-        this.selectedCards += (cardSet.values[index]) + ' ';
-      }
-    })
 
     if (this.validateForm(errors)) {
       this.sendData('session', session);
@@ -78,7 +73,7 @@ class NewRoom extends React.Component {
       default:
         break;
     }
-
+    errors.cards = ''
     this.setState((prevState) => ({
       errors,
       session: {
@@ -100,11 +95,30 @@ class NewRoom extends React.Component {
   }
 
   showCards(cards, index, isAllCardsSelected){
-    return <Card key={cards} index={index} value={cards} active={isAllCardsSelected}/>
+    return <Card key={cards} index={index} value={cards} active={isAllCardsSelected} handle={() => this.forceUpdate()}/>
+  }
+
+  updateSelectedCards(){
+    const { errors } = this.state;
+      this.selectedCards = []
+      let cardsQuantity = 0;
+
+      cardSet.selected.map((value, index) => {
+        if (value === true) {
+          this.selectedCards += (cardSet.values[index]) + ' ';
+          cardsQuantity ++;
+        }
+      })
+      if (cardsQuantity < 3){
+        errors.cards = "error";
+      } else {
+        errors.cards = "";
+      }
   }
 
   render() {
     let {isAllCardsSelected, isPrivateSession, errors, isShowError} = this.state;
+    this.updateSelectedCards();
     return (
       <Container>
         <h3 className="mt-3 text-xl-center">Create a new room</h3>
@@ -144,11 +158,12 @@ class NewRoom extends React.Component {
                   type="password"
                   isInvalid={errors.password.length > 0}
                   onChange={this.handleChange} />
-                <Form.Control.Feedback type="invalid">
+                <Form.Control.Feedback type="invalid">https://ru.stackoverflow.com/
                   {errors.password}
                 </Form.Control.Feedback>
               </Form.Group>
             )}
+            {errors.cards.length > 0 && <small className="text-error">You must select at least 3 cards</small>}
             <h5 className="mt-2 text-xl-center">Cards: </h5>
           </Form>
         </Row>
