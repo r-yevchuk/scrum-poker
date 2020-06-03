@@ -17,13 +17,11 @@ class Card extends React.Component {
   }
 
   onCardClick() {
-    // this.setState((currentState) => ({isActive: !currentState.isActive}));
     this.setState((currentState) => ({
       isActive: !currentState.isActive
     }), () => {
       this.props.handle();
     });
-    // this.props.handle();
   }
 
   render() {

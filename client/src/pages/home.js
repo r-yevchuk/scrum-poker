@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 class Home extends React.Component {
 
   render() {
+
     return (
       <div>
         <Container>
@@ -25,7 +26,7 @@ class Home extends React.Component {
                 <Form.Control size="lg" type="text" placeholder="Please enter your name"/>
               </Form.Group>
 
-              <Link to="/session">
+              <Link to="/client">
                 <Button className="btn-main mt-2" variant="outline-dark" size="lg">Join</Button>
               </Link>
 

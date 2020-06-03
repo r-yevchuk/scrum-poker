@@ -158,7 +158,7 @@ class NewRoom extends React.Component {
                   type="password"
                   isInvalid={errors.password.length > 0}
                   onChange={this.handleChange} />
-                <Form.Control.Feedback type="invalid">https://ru.stackoverflow.com/
+                <Form.Control.Feedback type="invalid">
                   {errors.password}
                 </Form.Control.Feedback>
               </Form.Group>
