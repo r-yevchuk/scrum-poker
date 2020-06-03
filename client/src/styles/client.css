@@ -2,13 +2,11 @@
   align-items: center;
   justify-content: center;
   margin: auto;
-  float: right;
 }
 
 .table-container {
-  width: 15%;
-  position: absolute;
-  right: 2%;
+  width: 20%;
+  padding: 0;
 }
 
 .status {
