@@ -11,11 +11,10 @@ class Home extends React.Component {
   render() {
 
     return (
-      <div>
         <Container>
           <h1 className="text">Scrum poker online</h1>
-          <Row>
-            <Form className="mt-lg-5">
+          <Row className="p-5">
+            <Form>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Id</Form.Label>
                 <Form.Control size="lg" type="text" placeholder="Session id"/>
@@ -38,7 +37,6 @@ class Home extends React.Component {
             </Form>
           </Row>
         </Container>
-      </div>
     )
   }
 }

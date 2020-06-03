@@ -1,3 +1,7 @@
 body {
   background: url("/img/background.jpg")
 }
+
+div.custom-control.custom-switch{
+  padding: 0;
+}

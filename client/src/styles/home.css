@@ -4,6 +4,12 @@
   font-size: 400%;
 }
 
+@media (max-width: 856px) {
+  .text {
+    font-size: 200%;
+  }
+}
+
 .row {
   justify-content: center;
 }
