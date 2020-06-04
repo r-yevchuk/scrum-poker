@@ -7,22 +7,73 @@ import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: {
+        id: "",
+        name: "",
+      },
+    }
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    const { name, value } = event.target;
+    const { errors } = this.state;
+    switch (name) {
+      case 'id':
+        errors.id = value.length < 1 ? 'Id cannot be empty! ' : '';
+        break;
+      case 'name':
+        errors.name = value.length < 1 ? 'The user name cannot be empty! ' : '';
+        break;
+      default:
+        break;
+    }
+
+    this.setState((prevState) => ({
+      errors,
+      user: {
+        ...prevState.session,
+        [name]: value,
+      },
+    }));
+  }
 
   render() {
-
+    const { errors } = this.state;
     return (
         <Container>
           <h1 className="text">Scrum poker online</h1>
           <Row className="p-5">
             <Form>
-              <Form.Group controlId="formBasicEmail">
+              <Form.Group>
                 <Form.Label>Id</Form.Label>
-                <Form.Control size="lg" type="text" placeholder="Session id"/>
+                <Form.Control
+                  placeholder="Session id"
+                  name="id"
+                  size="lg"
+                  type="text"
+                  isInvalid={errors.id.length > 0}
+                  onChange={this.handleChange}/>
+                <Form.Control.Feedback type="invalid">
+                  {errors.id}
+                </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group controlId="formBasicPassword">
+              <Form.Group>
                 <Form.Label>Name</Form.Label>
-                <Form.Control size="lg" type="text" placeholder="Please enter your name"/>
+                <Form.Control
+                  placeholder="Please enter your name"
+                  name="name"
+                  size="lg"
+                  type="text"
+                  isInvalid={errors.name.length > 0}
+                  onChange={this.handleChange}/>
+                <Form.Control.Feedback type="invalid">
+                  {errors.name}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Link to="/client">
