@@ -103,11 +103,12 @@ class NewRoom extends React.Component {
       this.selectedCards = []
       let cardsQuantity = 0;
 
-      cardSet.selected.map((value, index) => {
-        if (value === true) {
+      cardSet.selected
+        .filter(value => value === true)
+        // eslint-disable-next-line array-callback-return
+        .map((value, index) => {
           this.selectedCards += (cardSet.values[index]) + ' ';
           cardsQuantity ++;
-        }
       })
       if (cardsQuantity < 3){
         errors.cards = "error";
@@ -125,7 +126,7 @@ class NewRoom extends React.Component {
 
         <Row>
           <Form id="form" className="mt-lg-1">
-            <Form.Group controlId="formName">
+            <Form.Group>
               <Form.Label>Name:</Form.Label>
               <Form.Control
                 placeholder="Session name"
@@ -145,11 +146,11 @@ class NewRoom extends React.Component {
               <Form.Check onChange={() => this.reverseBoolState('isPrivateSession')}
                           className="custom-checkbox"
                           type="switch"
-                          label="Private session"  />
+                          label="Private session" />
             </Form.Group>
 
             {isPrivateSession && (
-              <Form.Group controlId="formBasicPassword">
+              <Form.Group>
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   placeholder="Session password"
@@ -157,7 +158,7 @@ class NewRoom extends React.Component {
                   size="lg"
                   type="password"
                   isInvalid={errors.password.length > 0}
-                  onChange={this.handleChange} />
+                  onChange={this.handleChange}/>
                 <Form.Control.Feedback type="invalid">
                   {errors.password}
                 </Form.Control.Feedback>
