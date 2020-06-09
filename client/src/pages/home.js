@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
+import Input from "../components/input";
 
 class Home extends React.Component {
   constructor(props) {
@@ -48,33 +49,25 @@ class Home extends React.Component {
           <h1 className="text">Scrum poker online</h1>
           <Row className="p-5">
             <Form>
-              <Form.Group>
-                <Form.Label>Id</Form.Label>
-                <Form.Control
-                  placeholder="Session id"
-                  name="id"
-                  size="lg"
-                  type="text"
-                  isInvalid={errors.id.length > 0}
-                  onChange={this.handleChange}/>
-                <Form.Control.Feedback type="invalid">
-                  {errors.id}
-                </Form.Control.Feedback>
-              </Form.Group>
+              <Input
+                label="Id"
+                placeholder="Session id"
+                name="id"
+                type="text"
+                isInvalid={errors.id.length > 0}
+                onChange={this.handleChange}
+                errors={errors.id}
+              />
 
-              <Form.Group>
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  placeholder="Please enter your name"
-                  name="name"
-                  size="lg"
-                  type="text"
-                  isInvalid={errors.name.length > 0}
-                  onChange={this.handleChange}/>
-                <Form.Control.Feedback type="invalid">
-                  {errors.name}
-                </Form.Control.Feedback>
-              </Form.Group>
+              <Input
+                label="Name"
+                placeholder="Please enter your name"
+                name="name"
+                type="text"
+                isInvalid={errors.name.length > 0}
+                onChange={this.handleChange}
+                errors={errors.name}
+              />
 
               <Link to="/client">
                 <Button className="btn-main mt-2" variant="outline-dark" size="lg">Join</Button>

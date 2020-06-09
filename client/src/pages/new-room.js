@@ -8,6 +8,7 @@ import {cardSet} from '../const/config.js'
 import Card from "../components/card";
 import {Link, withRouter} from "react-router-dom";
 import Api from '../services/api';
+import Input from "../components/input";
 
 
 class NewRoom extends React.Component {
@@ -126,21 +127,16 @@ class NewRoom extends React.Component {
 
         <Row>
           <Form id="form" className="mt-lg-1">
-            <Form.Group>
-              <Form.Label>Name:</Form.Label>
-              <Form.Control
-                placeholder="Session name"
-                name="name"
-                size="lg"
-                type="text"
-                required
-                isInvalid={isShowError && errors.name.length > 0}
-                isValid={errors.name === ''}
-                onChange={this.handleChange}/>
-              <Form.Control.Feedback type="invalid">
-                {errors.name}
-              </Form.Control.Feedback>
-            </Form.Group>
+            <Input
+              label="Name"
+              placeholder="Session name"
+              name="name"
+              type="text"
+              isInvalid={isShowError && errors.name.length > 0}
+              isValid={errors.name === ''}
+              onChange={this.handleChange}
+              errors={errors.name}
+            />
 
             <Form.Group controlId="formCheckbox">
               <Form.Check onChange={() => this.reverseBoolState('isPrivateSession')}
@@ -150,20 +146,16 @@ class NewRoom extends React.Component {
             </Form.Group>
 
             {isPrivateSession && (
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  placeholder="Session password"
-                  name="password"
-                  size="lg"
-                  type="password"
-                  isInvalid={errors.password.length > 0}
-                  onChange={this.handleChange}/>
-                <Form.Control.Feedback type="invalid">
-                  {errors.password}
-                </Form.Control.Feedback>
-              </Form.Group>
+              <Input
+                label="Password"
+                placeholder="Session password"
+                name="password"
+                type="password"
+                isInvalid={errors.password.length > 0}
+                onChange={this.handleChange}
+                errors={errors.password} />
             )}
+
             {errors.cards.length > 0 && <small className="text-error">You must select at least 3 cards</small>}
             <h5 className="mt-2 text-xl-center">Cards: </h5>
           </Form>
