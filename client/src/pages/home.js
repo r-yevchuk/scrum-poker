@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import Input from "../components/input";
+import Api from '../services/api';
 
 class Home extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Home extends React.Component {
         id: "",
         name: "",
       },
+      sessionId: 0
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -40,6 +42,10 @@ class Home extends React.Component {
         [name]: value,
       },
     }));
+  }
+
+  onJoinClick() {
+    // this.checkIfSessionExist()
   }
 
   render() {
@@ -69,9 +75,12 @@ class Home extends React.Component {
                 errors={errors.name}
               />
 
-              <Link to="/client">
-                <Button className="btn-main mt-2" variant="outline-dark" size="lg">Join</Button>
-              </Link>
+              <Button
+                className="btn-main mt-2"
+                variant="outline-dark"
+                size="lg"
+                onClick={() => this.onJoinClick()}
+              >Join</Button>
 
               <p className="separator">or</p>
 

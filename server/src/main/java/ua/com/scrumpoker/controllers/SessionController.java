@@ -21,14 +21,14 @@ public class SessionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Session> getEventById(@PathVariable Long id) {
+    public ResponseEntity<Session> getSessionById(@PathVariable Long id) {
         Optional<Session> result = sessionService.getSessionById(id);
         return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound()
                 .build());
     }
 
     @PostMapping
-    public ResponseEntity<Session> createEvent(@Valid @RequestBody Session session) {
+    public ResponseEntity<Session> createSession(@Valid @RequestBody Session session) {
         try {
             sessionService.saveSession(session);
             return ResponseEntity.created(new URI("/api/session")).body(session);
@@ -38,7 +38,7 @@ public class SessionController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Session> deleteEventById(@PathVariable Long id) {
+    public ResponseEntity<Session> deleteSessionById(@PathVariable Long id) {
         Optional<Session> result = sessionService.deleteSessionById(id);
         return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
     }

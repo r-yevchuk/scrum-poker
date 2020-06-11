@@ -15,6 +15,16 @@ class Api {
       });
   }
 
+  get(endpoint) {
+    return axios.get(this.getApiEndpoint(endpoint))
+      .then((response) => {
+        return { error: null, data: response.data };
+      })
+      .catch((error) => {
+        return { error: error.response };
+      });
+  }
+
   getApiEndpoint(endpoint) {
     if (this.apiUrl.endsWith('/') && endpoint.startsWith('/')) {
       return `${this.apiUrl.slice(0, -1)}${endpoint}`;
