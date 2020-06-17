@@ -18,7 +18,7 @@ class Api {
   get(endpoint) {
     return axios.get(this.getApiEndpoint(endpoint))
       .then((response) => {
-        return { error: null, data: response.data };
+        return { error: null, data: response.data, status: response.status};
       })
       .catch((error) => {
         return { error: error.response };

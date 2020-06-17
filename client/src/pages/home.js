@@ -7,23 +7,27 @@ import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import Input from "../components/input";
 import Api from '../services/api';
+import Alert from "react-bootstrap/Alert";
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       errors: {
-        id: "",
-        name: "",
+        id: '', name: '', connect: ''
       },
-      sessionId: 0
+      user: {
+        id: '',
+        name: '',
+      },
+      session: {},
     }
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
     const { name, value } = event.target;
     const { errors } = this.state;
+
     switch (name) {
       case 'id':
         errors.id = value.length < 1 ? 'Id cannot be empty! ' : '';
@@ -35,23 +39,52 @@ class Home extends React.Component {
         break;
     }
 
+    errors.connect = '';
     this.setState((prevState) => ({
       errors,
       user: {
-        ...prevState.session,
+        ...prevState.user,
         [name]: value,
       },
     }));
   }
 
   onJoinClick() {
-    // this.checkIfSessionExist()
+    this.getSession()
+  }
+
+  getSession() {
+    const { user, errors } = this.state;
+
+    if (user.id !== undefined && user.id > 0 &&  Number.isInteger(+user.id)) { // '+' convert from string to number
+      Api.get('session/' + user.id)
+        .then((response) => {
+          if (response.errors !== null){
+            errors.connect = 'Connection error! Try again later! '
+            this.setState({errors});
+            return;
+          }
+          if (response.status === 204) {
+            errors.id = 'Session with such id does not exist! '
+            this.setState({errors});
+            return;
+          }
+          this.setState({
+            session: response.data,
+          });
+        });
+    } else {
+      errors.id = 'Wrong id format! Must be positive integer number! '
+      this.setState({errors});
+    }
   }
 
   render() {
     const { errors } = this.state;
+    // TODO: fix alert style
     return (
         <Container>
+          {errors.connect.length > 0 && <Alert variant="danger">{errors.connect}</Alert>}
           <h1 className="text">Scrum poker online</h1>
           <Row className="p-5">
             <Form>
@@ -59,9 +92,9 @@ class Home extends React.Component {
                 label="Id"
                 placeholder="Session id"
                 name="id"
-                type="text"
+                type="number"
                 isInvalid={errors.id.length > 0}
-                onChange={this.handleChange}
+                onChange={(e) => this.handleChange(e)}
                 errors={errors.id}
               />
 
@@ -71,7 +104,7 @@ class Home extends React.Component {
                 name="name"
                 type="text"
                 isInvalid={errors.name.length > 0}
-                onChange={this.handleChange}
+                onChange={(e) => this.handleChange(e)}
                 errors={errors.name}
               />
 
