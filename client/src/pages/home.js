@@ -1,5 +1,6 @@
 import * as React from "react";
 import '../styles/home.css'
+import '../styles/alert.css'
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -81,10 +82,10 @@ class Home extends React.Component {
 
   render() {
     const { errors } = this.state;
-    // TODO: fix alert style
+
     return (
         <Container>
-          {errors.connect.length > 0 && <Alert variant="danger">{errors.connect}</Alert>}
+          {errors.connect.length > 0 && <Alert className="alert" variant="danger">{errors.connect}</Alert>}
           <h1 className="text">Scrum poker online</h1>
           <Row className="p-5">
             <Form>
