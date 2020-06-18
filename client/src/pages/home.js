@@ -60,24 +60,22 @@ class Home extends React.Component {
     if (user.id !== undefined && user.id > 0 &&  Number.isInteger(+user.id)) { // '+' convert from string to number
       Api.get('session/' + user.id)
         .then((response) => {
-          if (response.errors !== null){
+          if (response.errors !== null) {
             errors.connect = 'Connection error! Try again later! '
-            this.setState({errors});
-            return;
           }
           if (response.status === 204) {
             errors.id = 'Session with such id does not exist! '
-            this.setState({errors});
-            return;
-          }
-          this.setState({
-            session: response.data,
-          });
-        });
+          } else {
+            this.setState({
+              session: response.data,
+            });
+          }});
+    } else if (user.id === '') {
+      errors.id = 'Id cannot be empty! '
     } else {
       errors.id = 'Wrong id format! Must be positive integer number! '
-      this.setState({errors});
     }
+    this.setState({errors});
   }
 
   render() {
