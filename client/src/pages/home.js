@@ -31,7 +31,9 @@ class Home extends React.Component {
 
     switch (name) {
       case 'id':
-        errors.id = value.length < 1 ? 'Id cannot be empty! ' : '';
+        errors.id = value === '' ? 'Id cannot be empty! ' : '';
+        errors.id += !Number.isInteger(+value) ? 'Wrong id format! Must be positive integer number! ' : '';
+        errors.id += value < 0 ? 'Cannot be negative number ' : '';
         break;
       case 'name':
         errors.name = value.length < 1 ? 'The user name cannot be empty! ' : '';
@@ -57,25 +59,29 @@ class Home extends React.Component {
   getSession() {
     const { user, errors } = this.state;
 
-    if (user.id !== undefined && user.id > 0 &&  Number.isInteger(+user.id)) { // '+' convert from string to number
+    if (user.id === '') {
+      errors.id = 'Id cannot be empty! '
+      this.setState({errors});
+      return;
+    }
+
+    if (user.id !== undefined && user.id > 0 && Number.isInteger(+user.id)) { // '+' convert from string to number
       Api.get('session/' + user.id)
         .then((response) => {
-          if (response.errors !== null) {
+          if (response.error !== null) {
             errors.connect = 'Connection error! Try again later! '
+            this.setState({errors});
+            return;
           }
           if (response.status === 204) {
             errors.id = 'Session with such id does not exist! '
+            this.setState({errors});
           } else {
             this.setState({
               session: response.data,
             });
           }});
-    } else if (user.id === '') {
-      errors.id = 'Id cannot be empty! '
-    } else {
-      errors.id = 'Wrong id format! Must be positive integer number! '
     }
-    this.setState({errors});
   }
 
   render() {
@@ -93,6 +99,8 @@ class Home extends React.Component {
                 name="id"
                 type="number"
                 isInvalid={errors.id.length > 0}
+                // Prevent enter 'e' symbol
+                onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault()}
                 onChange={(e) => this.handleChange(e)}
                 errors={errors.id}
               />

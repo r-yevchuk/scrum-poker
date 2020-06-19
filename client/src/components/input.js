@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 
 class Input extends React.Component{
   render() {
-    const { label, placeholder, name, type, isInvalid, isValid, onChange, errors} = this.props;
+    const { label, placeholder, name, type, isInvalid, isValid, onKeyDown, onChange, errors} = this.props;
     return (
       <Form.Group>
         <Form.Label>{label}</Form.Label>
@@ -14,6 +14,7 @@ class Input extends React.Component{
           type={type}
           isInvalid={isInvalid}
           isValid={isValid}
+          onKeyDown={onKeyDown}
           onChange={onChange}/>
         <Form.Control.Feedback type="invalid">
           {errors}
