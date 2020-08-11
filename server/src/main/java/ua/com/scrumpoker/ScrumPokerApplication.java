@@ -3,9 +3,10 @@ package ua.com.scrumpoker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-public class ScrumPokerApplication {
+public class ScrumPokerApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ScrumPokerApplication.class, args);
