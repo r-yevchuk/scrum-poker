@@ -1,5 +1,6 @@
 package ua.com.scrumpoker.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.scrumpoker.models.Session;
@@ -32,7 +33,8 @@ public class SessionController {
         try {
             sessionService.saveSession(session);
             return ResponseEntity.created(new URI("/api/session")).body(session);
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | IllegalArgumentException e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
