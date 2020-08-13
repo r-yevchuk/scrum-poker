@@ -104,12 +104,12 @@ class NewRoom extends React.Component {
       this.selectedCards = []
       let cardsQuantity = 0;
 
-      cardSet.selected
-        .filter(value => value === true)
-        // eslint-disable-next-line array-callback-return
-        .map((value, index) => {
-          this.selectedCards += (cardSet.values[index]) + ' ';
-          cardsQuantity ++;
+    // eslint-disable-next-line array-callback-return
+      cardSet.selected.map((value, index) => {
+          if (cardSet.selected[index]) {
+            this.selectedCards += (cardSet.values[index]) + ' ';
+            cardsQuantity++;
+          }
       })
       if (cardsQuantity < 3){
         errors.cards = "error";
