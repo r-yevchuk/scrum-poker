@@ -22,6 +22,7 @@ class Home extends React.Component {
         name: '',
       },
       session: {},
+      isPrivateSession: false,
     }
   }
 
@@ -45,6 +46,7 @@ class Home extends React.Component {
     errors.connect = '';
     this.setState((prevState) => ({
       errors,
+      isPrivateSession: false,
       user: {
         ...prevState.user,
         [name]: value,
@@ -80,12 +82,15 @@ class Home extends React.Component {
             this.setState({
               session: response.data,
             });
+            if (response.data.password){
+              this.setState({isPrivateSession: true})
+            }
           }});
     }
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, isPrivateSession } = this.state;
 
     return (
         <Container>
@@ -114,6 +119,15 @@ class Home extends React.Component {
                 onChange={(e) => this.handleChange(e)}
                 errors={errors.name}
               />
+
+              {isPrivateSession &&
+              <Input
+                label="Password"
+                placeholder="Please enter password"
+                name="password"
+                type="text"
+                onChange={(e) => this.handleChange(e)}
+              />}
 
               <Button
                 className="btn-main mt-2"
