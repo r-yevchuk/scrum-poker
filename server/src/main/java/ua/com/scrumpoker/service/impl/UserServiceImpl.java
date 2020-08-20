@@ -1,7 +1,6 @@
 package ua.com.scrumpoker.service.impl;
 
 import org.springframework.stereotype.Service;
-import ua.com.scrumpoker.models.Session;
 import ua.com.scrumpoker.models.User;
 import ua.com.scrumpoker.repository.UserRepository;
 import ua.com.scrumpoker.service.UserService;
@@ -31,13 +30,9 @@ public class UserServiceImpl implements UserService {
     public Optional<User> deleteUserById(Long id) {
         Optional<User> result = getUserById(id);
         if (result.isPresent()) {
-            User user = result.get();
-            user.setDeleted(true);
-            userRepository.save(user);
-            return Optional.of(user);
+            userRepository.markAsDeleted(id);
+            return result;
         }
         return Optional.empty();
     }
-
-
 }
