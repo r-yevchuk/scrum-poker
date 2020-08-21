@@ -20,8 +20,8 @@ class Home extends React.Component {
       user: {
         id: '',
         name: '',
+        session: {id: ''}
       },
-      session: {},
       isPrivateSession: false,
     }
   }
@@ -76,17 +76,26 @@ class Home extends React.Component {
             return;
           }
           if (response.status === 204) {
-            errors.id = 'Session with such id does not exist! '
+            errors.id = 'Session with such id doesn\'t exist! '
             this.setState({errors});
           } else {
-            this.setState({
-              session: response.data,
-            });
+              user.session.id = user.id;
+              this.createUser(user);
             if (response.data.password){
               this.setState({isPrivateSession: true})
             }
           }});
     }
+  }
+
+  createUser(user) {
+    Api.post('user', user)
+      .then((response) => {
+        if (response.error) {
+          return;
+        }
+        this.props.history.push('/client');
+      });
   }
 
   render() {
