@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Entity
-public class Session extends BaseEntity{
+public class Session extends BaseEntity {
     @NotBlank
     private String name;
 

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Entity
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @NotBlank
     private String name;

@@ -1,6 +1,5 @@
 package ua.com.scrumpoker.controllers;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.scrumpoker.models.Session;
@@ -42,6 +41,6 @@ public class SessionController {
     @DeleteMapping("{id}")
     public ResponseEntity<Session> deleteSessionById(@PathVariable Long id) {
         Optional<Session> result = sessionService.deleteSessionById(id);
-        return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
+        return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

@@ -24,16 +24,16 @@ public class SessionServiceImpl implements SessionService {
         String prefix = "";
         int cardsQuantity = 0;
 
-        for(int i = 0; i < Config.CARDS.length; i++) {
-            if(Arrays.asList(parts).contains(Config.CARDS[i])) {
+        for (int i = 0; i < Config.CARDS.length; i++) {
+            if (Arrays.asList(parts).contains(Config.CARDS[i])) {
                 sb.append(prefix);
                 prefix = " ";
                 sb.append(Config.CARDS[i]);
-                cardsQuantity ++;
+                cardsQuantity++;
             }
         }
 
-        if (cardsQuantity > 2){
+        if (cardsQuantity > 2) {
             session.setCards(sb.toString());
             sessionRepository.save(session);
         } else {
@@ -50,10 +50,8 @@ public class SessionServiceImpl implements SessionService {
     public Optional<Session> deleteSessionById(Long id) {
         Optional<Session> result = getSessionById(id);
         if (result.isPresent()) {
-            Session session = result.get();
-            session.setDeleted(true);
-            sessionRepository.save(session);
-            return Optional.of(session);
+            sessionRepository.markAsDeleted(id);
+            return result;
         }
         return Optional.empty();
     }

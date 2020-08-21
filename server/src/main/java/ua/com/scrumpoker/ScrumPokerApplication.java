@@ -8,8 +8,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class ScrumPokerApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ScrumPokerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ScrumPokerApplication.class, args);
+    }
 
 }
