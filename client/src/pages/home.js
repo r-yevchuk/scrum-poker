@@ -33,6 +33,7 @@ class Home extends React.Component {
         errors.id = value === '' ? 'Id cannot be empty! ' : '';
         errors.id += !Number.isInteger(+value) ? 'Wrong id format! Must be positive integer number! ' : '';
         errors.id += value < 0 ? 'Cannot be negative number ' : '';
+        this.setState({isPrivateSession: false})
         break;
       case 'name':
         errors.name = value.length < 1 ? 'The user name cannot be empty! ' : '';

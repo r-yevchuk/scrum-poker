@@ -68,7 +68,7 @@ class NewRoom extends React.Component {
         errors.name = value.length < 1 ? 'The name cannot be empty! ' : '';
         break;
       case 'password':
-        errors.password = value.length > 8 && value.length <= 40 ?
+        errors.password = value.length > 7 && value.length <= 40 ?
           '' : 'Password must be 8-40 characters! ';
         break;
       default:
