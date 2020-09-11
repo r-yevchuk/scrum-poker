@@ -5,17 +5,39 @@ import {cardSet} from "../const/config";
 import Row from "react-bootstrap/Row";
 import Card from "../components/card";
 import Table from "react-bootstrap/Table";
+import Api from "../services/api";
 
 class Client extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     session: { id: 0},
+    }
+  }
 
   showCards(cards, index, isAllCardsSelected) {
     return <Card key={cards} index={index} value={cards} active={isAllCardsSelected} handle={() => this.forceUpdate()}/>
   }
 
+  getSession(id){
+    Api.get('session/' + id)
+      .then((response) => {
+        if (response.error !== null) {
+          return;
+        }
+        this.setState({session: response.data})
+      });
+  }
+
   render() {
+    const {match: {params}} = this.props;
+    const {sessionId} = params;
+    const {session} = this.state;
+    this.getSession(sessionId)
+
     return (
       <Container fluid>
-        <h5 className="mt-4 mb-2 text-center"> Session name: SDAFGFDSA, id: 9999</h5>
+        <h5 className="mt-4 mb-2 text-center"> Session name: {session.name}, id: {sessionId}</h5>
 
         <Container fluid>
           <h5 className="mt-2 text-center">Members:</h5>

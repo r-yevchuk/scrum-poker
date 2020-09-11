@@ -123,7 +123,7 @@ class Home extends React.Component {
         if (response.error) {
           return;
         }
-        this.props.history.push('/client');
+        this.props.history.push('/client/' + user.session.id);
       });
   }
 
