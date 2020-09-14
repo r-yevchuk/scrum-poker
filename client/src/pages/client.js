@@ -14,9 +14,9 @@ class Client extends React.Component {
       session: {
         id: "?",
         name: "Loading...",
-        users: {}
+        users: {},
+        cards: '',
       },
-
     }
     this.getSession(this.props.match.params.sessionId)
   }
@@ -47,6 +47,8 @@ class Client extends React.Component {
       others = users.splice(half_length, users.length)
       users = users.splice(0, half_length);
     }
+
+    let allCards = session['cards'].toString().split(' ');
 
     return (
       <Container fluid>
@@ -79,7 +81,7 @@ class Client extends React.Component {
           </Container>
 
           <Row className="cards-row mt-4">
-            {cardSet.values.map((cards, index) =>
+            {allCards.map((cards, index) =>
               this.showCards(cards, index, cardSet.selected[index]))}
           </Row>
         </Container>
