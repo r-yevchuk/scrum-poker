@@ -11,8 +11,13 @@ class Client extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-     session: { id: 0},
+     session: {
+       id: "?",
+       name: "Loading..."},
     }
+    this.getSession(this.props.match.params.sessionId)
+
+
   }
 
   showCards(cards, index, isAllCardsSelected) {
@@ -30,14 +35,11 @@ class Client extends React.Component {
   }
 
   render() {
-    const {match: {params}} = this.props;
-    const {sessionId} = params;
     const {session} = this.state;
-    this.getSession(sessionId)
 
     return (
       <Container fluid>
-        <h5 className="mt-4 mb-2 text-center"> Session name: {session.name}, id: {sessionId}</h5>
+        <h5 className="mt-4 mb-2 text-center"> Session name: {session.name}, id: {session.id}</h5>
 
         <Container fluid>
           <h5 className="mt-2 text-center">Members:</h5>

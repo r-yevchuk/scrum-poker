@@ -118,6 +118,7 @@ class Home extends React.Component {
 
   createUser(user) {
     user.session.id = user.id;
+    user.id = '';
     Api.post('user', user)
       .then((response) => {
         if (response.error) {
