@@ -3,6 +3,7 @@ package ua.com.scrumpoker.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -26,5 +27,6 @@ public class Session extends BaseEntity {
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "session")
+    @Where(clause = "is_deleted = false")
     private List<User> users = new ArrayList<>();
 }

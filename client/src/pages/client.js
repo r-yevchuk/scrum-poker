@@ -41,9 +41,9 @@ class Client extends React.Component {
     let users = Object.values(session['users']);
     let isNeedToSplit = users.length > 5;
 
-    let others;
+    let others, half_length;
     if (isNeedToSplit) {
-      let half_length = Math.ceil(users.length / 2);
+      half_length = Math.ceil(users.length / 2);
       others = users.splice(half_length, users.length)
       users = users.splice(0, half_length);
     }
@@ -68,7 +68,7 @@ class Client extends React.Component {
             <span className="table-container">
               <UserTable
                 users={others}
-                startIndex={5}
+                startIndex={half_length + 1}
                 />
             </span>}
           </Row>
