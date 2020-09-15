@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import Card from "../components/card";
 import Api from "../services/api";
 import UserTable from "../components/table";
+import {Link} from "react-router-dom";
 
 class Client extends React.Component {
   constructor(props) {
@@ -52,7 +53,15 @@ class Client extends React.Component {
 
     return (
       <Container fluid>
-        <h5 className="mt-4 mb-2 text-center"> Session name: {session.name}, id: {session.id}</h5>
+        <h5 className="mt-4 mb-2 text-center">Session name: {session.name},
+          <Link
+            to="#"
+            className="ml-2"
+            onClick={() => {
+              navigator.clipboard.writeText(this.state.session.id)}}>
+            id: {session.id}
+          </Link>
+        </h5>
 
         <Container fluid>
           <h5 className="mt-2 text-center">Members:</h5>
