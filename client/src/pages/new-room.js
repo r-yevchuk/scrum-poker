@@ -91,7 +91,7 @@ class NewRoom extends React.Component {
         if (response.error) {
           return;
         }
-        this.props.history.push('/session');
+        this.props.history.push('/session/' + response.data.id);
       });
   }
 

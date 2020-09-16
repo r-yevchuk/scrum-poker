@@ -15,8 +15,8 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/new-room" component={NewRoom}/>
-          <Route exact path="/session" component={Room}/>
-          <Route exact path="/client/:sessionId" render={(props) => <Client sessionId="Hello, " {...props} />} />
+          <Route exact path="/session/:sessionId" render={(props) => <Room {...props} />} />
+          <Route exact path="/client/:sessionId" render={(props) => <Client {...props} />} />
           <Route component={NotFound}/>
         </Switch>
       </BrowserRouter>
