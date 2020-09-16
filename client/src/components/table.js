@@ -18,7 +18,7 @@ class UserTable extends React.Component{
         <tbody>
         {users.map((value, index) => {
           return (
-            <tr>
+            <tr key={value.id}>
               <td>{startIndex + index}</td>
               <td>{value.name}</td>
               <td>?</td>
