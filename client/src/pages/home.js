@@ -153,7 +153,6 @@ class Home extends React.Component {
               label="Name"
               placeholder="Please enter your name"
               name="name"
-              type="text"
               isInvalid={errors.name.length > 0}
               onChange={(e) => this.handleChange(e)}
               errors={errors.name}
@@ -164,7 +163,6 @@ class Home extends React.Component {
               label="Password"
               placeholder="Please enter password"
               name="password"
-              type="text"
               isInvalid={errors.password.length > 0}
               onChange={(e) => this.handleChange(e)}
               errors={errors.password}
