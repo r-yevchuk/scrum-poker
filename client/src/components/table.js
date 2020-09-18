@@ -1,17 +1,23 @@
 import * as React from "react";
+import '../styles/user-table.css'
 import Table from "react-bootstrap/Table";
 
 class UserTable extends React.Component{
+
+  onDeleteClick(){
+    console.log("Delete");
+  }
 
   render() {
     const {users, startIndex} = this.props;
     return (
       <Table className="table-members" striped bordered hover size="sm">
         <thead>
-        <tr>
+        <tr className="text-center">
           <th>#</th>
           <th>Name</th>
           <th>Estimation</th>
+          <th>&#128465;</th>
         </tr>
         </thead>
 
@@ -22,6 +28,7 @@ class UserTable extends React.Component{
               <td>{startIndex + index}</td>
               <td>{value.name}</td>
               <td>?</td>
+              <td className="delete-user" onClick={this.onDeleteClick}>X</td>
             </tr>
           )
         })}

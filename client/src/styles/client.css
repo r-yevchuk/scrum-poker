@@ -1,12 +1,13 @@
-.table-members {
-  align-items: center;
-  justify-content: center;
-  margin: auto;
+.table-container {
+  width: 25%;
+  padding: 0;
 }
 
-.table-container {
-  width: 20%;
-  padding: 0;
+@media (max-width: 856px) {
+  .table-container {
+    width: 50%;
+    padding: 0;
+  }
 }
 
 .status {
