@@ -11,7 +11,7 @@ class UserTable extends React.Component{
   render() {
     const {users, startIndex} = this.props;
     return (
-      <Table className="table-members" striped bordered hover size="sm">
+      <Table className="table-members" bordered hover size="sm">
         <thead>
         <tr className="text-center">
           <th>#</th>

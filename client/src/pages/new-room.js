@@ -122,13 +122,13 @@ class NewRoom extends React.Component {
     let {isAllCardsSelected, isPrivateSession, errors, isShowError} = this.state;
     this.updateSelectedCards();
     return (
-      <Container>
+      <Container fluid>
         <h3 className="mt-3 text-xl-center">Create a new room</h3>
 
         <Row>
-          <Form id="form" className="mt-lg-1">
+          <Form className="room-form">
             <Input
-              label="Name"
+              label="Room name"
               placeholder="Session name"
               name="name"
               type="text"
@@ -156,13 +156,13 @@ class NewRoom extends React.Component {
                 errors={errors.password} />
             )}
 
-            {errors.cards.length > 0 && <small className="text-error">You must select at least 3 cards</small>}
-            <h5 className="mt-2 text-xl-center">Cards: </h5>
+            {errors.cards.length > 0 ? <small className="text-error">You must select at least 3 cards</small> : <br />}
+            <h5 className="text-xl-center">Cards: </h5>
           </Form>
         </Row>
 
         <Row>
-          <ButtonToolbar>
+          <ButtonToolbar className="mb-1">
             <Button
               variant="outline-dark"
               size="lg"

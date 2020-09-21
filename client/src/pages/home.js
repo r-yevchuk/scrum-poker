@@ -136,7 +136,7 @@ class Home extends React.Component {
         {errors.connect.length > 0 && <Alert className="alert" variant="danger">{errors.connect}</Alert>}
         <h1 className="text">Scrum poker online</h1>
         <Row className="p-5">
-          <Form>
+          <Form className="login-form">
             <Input
               label="Id"
               placeholder="Session id"
