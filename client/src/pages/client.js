@@ -35,12 +35,12 @@ class Client extends React.Component {
           <Container className="status">
             You can vote!
           </Container>
-
-          <Row className="cards-row mt-4">
-            {allCards.map((cards, index) =>
-              this.showCards(cards, index, cardSet.selected[index]))}
-          </Row>
         </Container>
+
+        <Row className="cards-row mt-4">
+          {allCards.map((cards, index) =>
+            this.showCards(cards, index, cardSet.selected[index]))}
+        </Row>
       </Container>
     );
   }

@@ -1,11 +1,12 @@
 .card-frame {
   margin: 0.5%;
   width: 10em;
-  line-height: 12em;
-  height: 12em;
+  line-height: 11em;
+  height: 11em;
   border: 1px solid #000;
   text-align: center;
   cursor: pointer;
+  user-select: none;
 }
 
 .card-frame:active {
