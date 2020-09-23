@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import Input from "../components/input";
 import Api from '../services/api';
 import Alert from "react-bootstrap/Alert";
@@ -124,6 +124,7 @@ class Home extends React.Component {
         if (response.error) {
           return;
         }
+        this.props.onCreateUser(response.data);
         this.props.history.push('/client/' + user.session.id);
       });
   }
@@ -187,4 +188,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);

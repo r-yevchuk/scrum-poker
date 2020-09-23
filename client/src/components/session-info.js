@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import UserTable from "./table";
+import SockJsClient from 'react-stomp';
 
 class SessionInfo extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class SessionInfo extends React.Component {
         name: "Loading...",
         users: {},
       },
+      user: this.props.user,
     }
     this.getSession(this.props.sessionId)
   }
@@ -29,8 +31,24 @@ class SessionInfo extends React.Component {
       });
   }
 
+  sendUser(user) {
+    this.setState(prevState => ({
+      users: [...prevState.users, user]
+    }))
+  }
+
+  updateSession(session){
+   this.setState({session: session})
+  }
+
+  message(id) {
+    if (id !== undefined && id !== '?') {
+      this.clientRef.sendMessage('/app/add-user', JSON.stringify(id));
+    }
+  }
+
   render() {
-    const {session} = this.state;
+    const {session, user} = this.state;
 
     let users = Object.values(session['users']);
     let isNeedToSplit = users.length > 5;
@@ -44,6 +62,13 @@ class SessionInfo extends React.Component {
 
     return (
       <Container fluid>
+        <SockJsClient url='http://localhost:8080/websocket/'
+                      topics={['/room/users']}
+                      onConnect={() => {console.log("connected"); this.message(session.id)}}
+                      onDisconnect={() => {console.log("Disconnected");}}
+                      onMessage={(msg) => {console.log(msg); this.updateSession(msg)}}
+                      ref={(client) => {this.clientRef = client}}
+        />
         <Container fluid>
           <h5 className="mt-4 mb-2 text-center">Session name: {session.name},
             <Link

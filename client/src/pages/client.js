@@ -28,7 +28,11 @@ class Client extends React.Component {
 
     return (
       <Container fluid>
-        <SessionInfo sessionId={this.props.match.params.sessionId} onGetSession={(e) => this.handleSession(e)}/>
+        <SessionInfo
+          sessionId={this.props.match.params.sessionId}
+          user={this.props.user}
+          onGetSession={(e) => this.handleSession(e)}
+        />
 
         <Container className="mt-2 text-center">
           Status:
